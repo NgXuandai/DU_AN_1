@@ -1,7 +1,9 @@
 package com.example.du_an_1.database;
 
 import android.content.Context;
+
 import android.database.Cursor;
+
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -15,10 +17,12 @@ public class DbHelper extends SQLiteOpenHelper {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
+
     public Cursor getData(String sql) {
         SQLiteDatabase db = getReadableDatabase();
         return db.rawQuery(sql, null);
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTableUser = "create table User(" +

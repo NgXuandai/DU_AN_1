@@ -2,6 +2,7 @@ package com.example.du_an_1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -27,10 +28,15 @@ public class Login extends AppCompatActivity {
 
     String user, pass;
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         edt_pass_login = findViewById(R.id.edt_pass_login);
         edt_user_login = findViewById(R.id.edt_user_login);
         chkRememberPass = findViewById(R.id.chkRememberPass);
@@ -153,5 +159,6 @@ public class Login extends AppCompatActivity {
         }
         // luu lai toan bo du lieu
         edit.commit();
+
     }
 }

@@ -7,7 +7,7 @@
     android:gravity="center_horizontal"
     tools:context=".Login"
     android:background="#E91E63">
-    
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="350dp"
@@ -83,12 +83,5 @@
                 android:textColor="#E91E63"
                 android:layout_marginLeft="10dp"/>
         </LinearLayout>
-
-
     </LinearLayout>
-
-    
-
-  
-
 </LinearLayout>

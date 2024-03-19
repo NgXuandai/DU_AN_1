@@ -1,6 +1,7 @@
 package com.example.du_an_1.model;
 
 public class User {
+
     int maUser;
     String maDN;
     String matKhau;
@@ -67,4 +68,5 @@ public class User {
     public void setVaiTro(int vaiTro) {
         this.vaiTro = vaiTro;
     }
+
 }

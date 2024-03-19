@@ -43,6 +43,7 @@ public class RegisterActivity2 extends AppCompatActivity {
         btn_dangki_register = findViewById(R.id.btn_dangki_register);
         btn_login_acc = findViewById(R.id.btn_login_acc);
 
+        bien();
 
 
         btn_login_acc.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +63,7 @@ public class RegisterActivity2 extends AppCompatActivity {
         btn_dangki_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialogTaoTaiKhoan();
 
             }
         });
