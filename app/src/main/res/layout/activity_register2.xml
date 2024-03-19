@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity2"
+    android:gravity="center_horizontal"
+    android:background="#E91E63"
+    android:orientation="vertical">
+    <ImageView
+        android:id="@+id/img_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:src="@drawable/login3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lakkireddy"
+        android:gravity="center_horizontal"
+        android:text="Đăng Ký"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_logo"
+        android:layout_marginTop="-10dp"/>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_login">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_4"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:paddingBottom="5dp">
+
+            <EditText
+                android:id="@+id/ed_fullname_register"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/edittext_bkg"
+                android:drawableStart="@drawable/ic_fullname"
+                android:drawablePadding="10dp"
+                android:hint="Tên "
+                android:paddingStart="10dp"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/ed_sdt_register"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/edittext_bkg"
+                android:drawableStart="@drawable/ic_phone"
+                android:drawablePadding="10dp"
+                android:hint="Số điện thoại"
+                android:paddingStart="10dp"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/ed_username_register"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/edittext_bkg"
+                android:drawableStart="@drawable/icon_user"
+                android:drawablePadding="10dp"
+                android:hint="Tài khoản"
+                android:paddingStart="10dp"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/ed_pass_register"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/edittext_bkg"
+                android:drawableStart="@drawable/icon_password"
+                android:drawablePadding="10dp"
+                android:hint="Mật khẩu mới"
+                android:paddingStart="10dp"
+                android:textSize="14sp" />
+
+
+            <EditText
+                android:id="@+id/ed_repass_register"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/edittext_bkg"
+                android:drawableStart="@drawable/ic_repass"
+                android:drawablePadding="10dp"
+                android:hint="Xác nhận mật khẩu"
+                android:paddingStart="10dp"
+                android:textSize="14sp" />
+
+
+            <Button
+                android:id="@+id/btn_dangki_register"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:text="Đăng Ký"
+                android:textSize="20sp"
+                android:backgroundTint="#E91E63"
+                app:backgroundTint="@null" />
+            <Button
+                android:id="@+id/btn_login_acc"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="#E91E63"
+                android:text="Đăng Nhập "
+                android:textSize="20sp"
+                app:backgroundTint="@null" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
