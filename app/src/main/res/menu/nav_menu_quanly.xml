@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single" >
+        <item
+            android:title="Quản lý Đơn Hàng"
+            android:id="@+id/QLHome"
+            android:icon="@drawable/ic_baseline_attach_money_24"
+            />
+        <item
+            android:title="Quản Lý Loại Sản Phẩm"
+            android:id="@+id/QLLSP"
+            android:icon="@drawable/add_food"
+            />
+        <item
+            android:title="Quản Lý Sản Phẩm"
+            android:id="@+id/QLSP"
+            android:icon="@drawable/logo_11"
+            />
+        <item
+            android:title="Quản Lý Người Dùng"
+            android:id="@+id/QLND"
+            android:icon="@drawable/avatar"
+            />
+        <item
+            android:title="Quản Lý doanh thu"
+            android:id="@+id/QLDT"
+            android:icon="@drawable/doanhthu"
+            />
+
+<!--        <item-->
+<!--            android:title="Quản Lý Xe"-->
+<!--            android:id="@+id/driverWork"-->
+<!--            android:icon="@drawable/ic_car"-->
+<!--            />-->
+        <item android:title="Khác" >
+            <menu >
+                <item
+                    android:title="Thoát"
+                    android:id="@+id/QLThoat"
+                    android:icon="@drawable/ic_baseline_exit_to_app_24"
+                    />
+            </menu>
+        </item>
+
+    </group>
+</menu>
