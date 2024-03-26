@@ -77,16 +77,21 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_sologan">
-                    <!--                    <com.denzcoskun.imageslider-->
-                    <!--                        android:id="@+id/image_slider"-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="150dp"-->
-                    <!--                        android:layout_marginVertical="20dp"-->
-                    <!--                        app:iss_auto_cycle="true"-->
-                    <!--                        app:iss_delay="1000"-->
-                    <!--                        app:iss_period="1000"-->
-                    <!--                        app:iss_text_align="CENTER"-->
-                    <!--                        tools:ignore="MissingClass,MissingConstraints" />-->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/banner"/>
+<!--                    <com.denzcoskun.imageslider.ImageSlider-->
+<!--                        android:id="@+id/image_slider"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="150dp"-->
+<!--                        android:layout_marginVertical="20dp"-->
+<!--                        app:iss_auto_cycle="true"-->
+<!--                        app:iss_delay="1000"-->
+<!--                        app:iss_period="1000"-->
+<!--                        app:iss_text_align="CENTER"-->
+<!--                        tools:ignore="MissingClass,MissingConstraints" />-->
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

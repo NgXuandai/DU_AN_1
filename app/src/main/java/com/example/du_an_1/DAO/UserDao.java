@@ -93,4 +93,20 @@ public class UserDao {
         }
         return maDNTV;
     }
+    String tenTV;
+    public String getTenTV(String maTV) {
+        try {
+            Cursor cursor = db.rawQuery("SELECT hoTen FROM User WHERE maDN=?", new String[] {String.valueOf(maTV)});
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    tenTV = cursor.getString(0);
+                    cursor.moveToNext();
+                }
+            }
+        } catch (Exception e) {
+            Log.i(TAG, "Lỗi" + e);
+        }
+        return tenTV;
+    }
 }

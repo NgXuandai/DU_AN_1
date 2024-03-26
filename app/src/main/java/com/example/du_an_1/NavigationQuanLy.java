@@ -12,6 +12,9 @@ import androidx.fragment.app.FragmentManager;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +28,8 @@ import com.example.du_an_1.Fragment.fragment_quanLyNguoiDung;
 import com.example.du_an_1.model.User;
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,5 +127,40 @@ public class NavigationQuanLy extends AppCompatActivity {
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+    public void importAnh() {
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, 1);
+    }
+    Uri selectedImage;
+    public byte[] getAnh() {
+        // Max allowed size in bytes
+        int maxSize = 1024 * 1024; // 1MB
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(selectedImage);
+            // Đọc ảnh vào một đối tượng Bitmap
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(inputStream, null, options);
+            // Tính toán tỷ lệ nén cần áp dụng để đảm bảo kích thước không vượt quá maxSize
+            int scale = 1;
+            while ((options.outWidth * options.outHeight) * (1 / Math.pow(scale, 2)) > maxSize) {
+                scale++;
+            }
+            options.inSampleSize = scale;
+            options.inJustDecodeBounds = false;
+            inputStream.close();
+            // Đọc ảnh lại với tỷ lệ nén
+            inputStream = getContentResolver().openInputStream(selectedImage);
+            Bitmap selectedBitmap = BitmapFactory.decodeStream(inputStream, null, options);
+            // Chuyển đổi Bitmap thành byte array
+            ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+            selectedBitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteBuffer); // Thay đổi định dạng và chất lượng nén tùy theo nhu cầu
+            byte[] imageData = byteBuffer.toByteArray();
+            return imageData;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

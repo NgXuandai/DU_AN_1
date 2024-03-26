@@ -2,13 +2,19 @@ package com.example.du_an_1.Fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.du_an_1.R;
+import com.example.du_an_1.adapter.Adapter_tab_lsp;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +22,10 @@ import com.example.du_an_1.R;
  * create an instance of this fragment.
  */
 public class Fragment_quanLyLoaiSp extends Fragment {
+    ViewPager2 pager2l;
+    TabLayout tabLayoutl;
+    TabLayoutMediator mediator;
+    Adapter_tab_lsp adapter_tab_lsp;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,9 +68,28 @@ public class Fragment_quanLyLoaiSp extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_quan_ly_loai_sp, container, false);
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        adapter_tab_lsp = new Adapter_tab_lsp(this);
+        pager2l = view.findViewById(R.id.viewPage2_lsp);
+        pager2l.setAdapter(adapter_tab_lsp);
+        tabLayoutl = view.findViewById(R.id.tabLayout_lsp);
+        mediator = new TabLayoutMediator(tabLayoutl, pager2l, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                if (position == 0) {
+                    tab.setText("Đang Kinh Doanh");
+                } else {
+                    tab.setText("Ngừng Kinh Doanh");
+                }
+            }
+        });
+
+        mediator.attach();
+}
 }

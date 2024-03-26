@@ -1,4 +1,4 @@
-package com.example.du_an_1;
+package com.example.du_an_1.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,37 +13,41 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.du_an_1.DAO.Food_DAO;
-import com.example.du_an_1.model.Food;
-import com.example.du_an_1.model.User;
-
+import com.example.du_an_1.DAO.Type_Of_Food_DAO;
+import com.example.du_an_1.DAO.UserDao;
+import com.example.du_an_1.MainActivity;
+import com.example.du_an_1.Pizza_List;
+import com.example.du_an_1.R;
+import com.example.du_an_1.model.Type_Of_Food;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FoodAdapter_Home extends RecyclerView.Adapter<FoodAdapter_Home.ViewHolder>{
+public class Type_Of_Food_ListCategory_Adapter extends RecyclerView.Adapter<Type_Of_Food_ListCategory_Adapter.ViewHolder>{
     Context context;
-    List<Food> list;
+    List<Type_Of_Food> list;
+    Pizza_List pizzaList;
     MainActivity mainActivity;
-    Food_DAO food_dao;
-    ArrayList<User> list2;
-//    User_DAO user_dao ;
+    Type_Of_Food_DAO T_food_dao;
+    ArrayList<Type_Of_Food> list2;
+    String strLoai;
+    UserDao user_dao;
     private ViewHolder currentViewHolder;
 
 
-    public FoodAdapter_Home(Context context, List<Food> list) {
+    public Type_Of_Food_ListCategory_Adapter(Context context, List<Type_Of_Food> list) {
         this.context = context;
         this.list = list;
-        mainActivity = (MainActivity) context;
-        food_dao = new Food_DAO(context);
+        pizzaList = (Pizza_List) context;
+//        mainActivity = (MainActivity) context;
+        T_food_dao = new Type_Of_Food_DAO(context);
     }
-
 
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_popular,parent,false);
+        View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_category,parent,false);
 
 
         return new ViewHolder(inflate);
@@ -51,28 +55,28 @@ public class FoodAdapter_Home extends RecyclerView.Adapter<FoodAdapter_Home.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        user_dao = new UserDao(context);
 
-//        user_dao = new User_DAO(context);
-
-        holder.tv_title.setText(list.get(position).getTenFood());
-        holder.tv_fee.setText(String.valueOf(list.get(position).getGiaFood()));
+        holder.tv_title.setText(list.get(position).getTenLoai());
         holder.img_pic.setImageURI(list.get(position).hienthi(context));
         currentViewHolder = holder; // Lưu trữ holder hiện tại
         // Lưu trữ hình ảnh hiện tại của đối tượng đang được hiển thị
         byte[] currentImage = list.get(position).getHinhAnh();
         holder.setCurrentImage(currentImage);
 
-//        holder.tv_btn_add.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(holder.itemView.getContext(), ShowDetailActivity_2.class);
-//                intent.putExtra("object_2", list.get(position).getMaFood());
-//                intent.putExtra("image_data", list.get(position).getHinhAnh());
-////                intent.putExtra("user", String.valueOf(MainActivity.user));
-//                holder.itemView.getContext().startActivity(intent);
-//            }
-//        });
- }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                strLoai = list.get(position).getTenLoai();
+                Intent intent = new Intent(holder.itemView.getContext(), Pizza_List.class);
+                intent.putExtra("title", strLoai);
+                intent.putExtra("user", String.valueOf(MainActivity.user));
+                holder.itemView.getContext().startActivity(intent);
+            }
+        });
+
+    }
     @Override
     public int getItemCount() {
         return list.size();
@@ -85,11 +89,9 @@ public class FoodAdapter_Home extends RecyclerView.Adapter<FoodAdapter_Home.View
         private byte[] currentImage;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tv_title = itemView.findViewById(R.id.tv_title);
-            tv_fee = itemView.findViewById(R.id.tv_fee);
-            tv_btn_add = itemView.findViewById(R.id.tv_btn_add);
-            img_pic = itemView.findViewById(R.id.img_pic);
-//            mainLayout = itemView.findViewById(R.id.mainLayout);
+            tv_title = itemView.findViewById(R.id.categoryName);
+            img_pic = itemView.findViewById(R.id.categoryPic);
+            mainLayout = itemView.findViewById(R.id.mainLayout);
         }
         public void setCurrentImage(byte[] currentImage) {
             this.currentImage = currentImage;
@@ -98,8 +100,6 @@ public class FoodAdapter_Home extends RecyclerView.Adapter<FoodAdapter_Home.View
         public byte[] getCurrentImage() {
             return currentImage;
         }
-        public Intent getIntent() {
-            return null;
-        }
     }
 }
+
