@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     android:orientation="vertical"
-    android:padding="15dp"
-    android:gravity="bottom"
-    android:layout_height="match_parent">
-
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/menuDriver"
+    android:padding="20dp">
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/avatar"
+        android:layout_marginTop="20dp"
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:layout_marginTop="5dp"
-        android:textColor="#5E3501"
-        android:text="Admin"
+        android:text="Xin chào Admin"
         android:textStyle="bold"
-        />
+        android:layout_marginTop="10dp"/>
     <TextView
+        android:id="@+id/tvUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Account: adminquanly"
@@ -23,5 +26,4 @@
         android:layout_marginTop="5dp"
         android:textColor="@color/black"
         />
-
 </LinearLayout>

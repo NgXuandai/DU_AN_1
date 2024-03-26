@@ -54,14 +54,17 @@ public class NavigationQuanLy extends AppCompatActivity {
         getSupportActionBar().setTitle("Quản Lý Hóa Đơn");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationIcon(R.drawable.menunavbar);
+
         //xet icon ve mau ban goc
         navigationView.setItemIconTintList(null);
+
         // Gọi hiển thị tên với avatar người dùng // nhận dữ liệu từ login
-        header = navigationView.getHeaderView(0);
-        user_dao = new UserDao(this);
-        Intent intent = getIntent();
-        dto_user = (User) intent.getSerializableExtra("user");
-        list.add(dto_user);
+//        header = navigationView.getHeaderView(0);
+//        user_dao = new UserDao(this);
+//        Intent intent = getIntent();
+//        dto_user = (User) intent.getSerializableExtra("user");
+//        list.add(dto_user);
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

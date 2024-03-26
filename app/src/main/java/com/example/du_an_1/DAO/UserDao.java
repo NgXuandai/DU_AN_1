@@ -34,15 +34,45 @@ public class UserDao {
         values.put("vaiTro", obj.getVaiTro());
         return db.insert("User", null, values);
     }
+    // update trang thai
+    public int updateTrangThai(int id, int trangthai) {
+        ContentValues values = new ContentValues();
+        values.put("vaiTro", trangthai);
+        return db.update("User", values, "maUser=?",new String[]{String.valueOf(id)});
+    }
 
     public int checkLogin(String id, String password){
         String sql =" SELECT  * FROM User WHERE maDN=? AND matKhau=?";
         List<User> list = getData(sql,id,password);
-        if (list.size()==0){
+        if (list.size() == 0){
             return -1;
         }
-
         return 1;
+    }
+    public int checkMaDN(String maDN) {
+        String sql = "SELECT * FROM User WHERE maDN=?";
+        List<User> list = getData(sql,maDN);
+        if (list.size() == 0) {
+            return 1;
+        }
+        return -1;
+    }
+    public List<User> getAllA(int vaiTro) {
+        List<User> list = new ArrayList<>();
+        Cursor c = db.rawQuery("SELECT * FROM User where vaiTro =" + vaiTro, null);
+        if (c != null && c.getCount() > 0) {
+            c.moveToFirst();
+            do {
+                int maND = c.getInt(0);
+                String maDN = c.getString(1);
+                String mk = c.getString(2);
+                String ten = c.getString(3);
+                String sdt = c.getString(4);
+                int vai = c.getInt(5);
+                list.add(new User(maND, maDN, mk, ten, sdt, vai));
+            } while (c.moveToNext());
+        }
+        return list;
     }
 
     @SuppressLint("Range")

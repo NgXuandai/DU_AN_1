@@ -85,6 +85,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(createTableFood);
         db.execSQL(createTablegioHang);
         db.execSQL(createTableChiTietDonHang);
+        
         db.execSQL(addAdmin);
 //        db.execSQL(addLoai);
 //        db.execSQL(addPizza);
