@@ -74,6 +74,11 @@ public class UserDao {
         }
         return list;
     }
+    public User getMaDN(String id) {
+        String sql = "SELECT * FROM User WHERE maDN=?";
+        List<User> list = getData(sql, id);
+        return list.get(0);
+    }
 
     @SuppressLint("Range")
     private List<User> getData(String sql, String... selectionArgs) {
@@ -90,6 +95,26 @@ public class UserDao {
             list.add(obj);
         }
         return list;
+    }
+    public long changePass(User user) {
+        ContentValues values = new ContentValues();
+        values.put("matKhau", user.getMatKhau());
+
+
+        String whereClause = "maDN=?";
+        String[] whereArgs = new String[]{user.getMaDN()};
+
+
+        return db.update("User", values, whereClause, whereArgs);
+    }
+
+    public long Update(User obj) {
+        ContentValues values = new ContentValues();
+        values.put("maDN", obj.getMaDN());
+        values.put("matKhau", obj.getMatKhau());
+        values.put("hoTen", obj.getHoTen());
+        values.put("sDT", obj.getsDt());
+        return db.update("User", values, "maDN = ?", new String[]{String.valueOf(obj.getMaDN())});
     }
     int madn;
     public String getMaND(String vt) {

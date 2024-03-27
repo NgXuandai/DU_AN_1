@@ -150,14 +150,14 @@ public class Login extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("USER_FILE", MODE_PRIVATE);
         SharedPreferences.Editor edit = pref.edit();
         if (!status) {
-            // xoa trang thai luu truoc do
+
             edit.clear();
         } else {
             edit.putString("USERNAME", u);
             edit.putString("PASSWORD", p);
             edit.putBoolean("REMEMBER", status);
         }
-        // luu lai toan bo du lieu
+
         edit.commit();
 
     }

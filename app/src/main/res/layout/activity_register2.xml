@@ -96,6 +96,7 @@
                 android:background="@drawable/edittext_bkg"
                 android:drawableStart="@drawable/icon_password"
                 android:drawablePadding="10dp"
+                android:inputType="textPassword"
                 android:hint="Mật khẩu mới"
                 android:paddingStart="10dp"
                 android:textSize="14sp" />
@@ -109,6 +110,7 @@
                 android:layout_marginTop="30dp"
                 android:background="@drawable/edittext_bkg"
                 android:drawableStart="@drawable/ic_repass"
+                android:inputType="textPassword"
                 android:drawablePadding="10dp"
                 android:hint="Xác nhận mật khẩu"
                 android:paddingStart="10dp"
