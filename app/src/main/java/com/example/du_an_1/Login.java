@@ -115,7 +115,7 @@ public class Login extends AppCompatActivity {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                                     Intent ic = new Intent(Login.this, MainActivity.class);
                                     ic.putExtra("user", user);
                                     startActivity(ic);
@@ -138,7 +138,7 @@ public class Login extends AppCompatActivity {
 
 
             } else {
-                Toast.makeText(this, "Username or password is incorrect", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Tài khoản hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
             }
 
         }

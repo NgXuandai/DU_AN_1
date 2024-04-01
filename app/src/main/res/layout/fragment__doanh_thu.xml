@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".Fragment.Fragment_DoanhThu">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="150dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bắt đầu từ"/>
+        <EditText
+            android:id="@+id/edt_ngaybatdau"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Chọn ngày bắt đầu"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kết thúc"/>
+        <EditText
+            android:id="@+id/edt_ngaykethuc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Chọn ngày kết thúc"/>
+
+        <Button
+            android:id="@+id/btn_doanhthu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thống Kê"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"/>
+        <TextView
+            android:id="@+id/txtKetQua"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1234567 vnd"
+            android:textSize="24sp"
+            android:textColor="#E10909"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+</LinearLayout>

@@ -14,6 +14,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class Support extends AppCompatActivity {
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +40,10 @@ public class Support extends AppCompatActivity {
         });
 
 
+
+        bottomNavigation();
+
+
     }
     private void sendEmail() {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
@@ -52,6 +57,55 @@ public class Support extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:0345132209"));
         startActivity(intent);
+    }
+
+
+    private void bottomNavigation(){
+        FloatingActionButton floatingActionButton = findViewById(R.id.float_cart_btn);
+        LinearLayout homeBtn = findViewById(R.id.home_btn);
+        LinearLayout settingBtn = findViewById(R.id.setting_btn);
+        LinearLayout profile = findViewById(R.id.profile_btn);
+        LinearLayout support = findViewById(R.id.support_btn);
+
+//        Intent i = getIntent();
+//        String user = i.getStringExtra("user");
+//        user_dao = new User_DAO(this);
+//        String username = user_dao.getTenTV(user);
+
+
+        support.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent ic = new Intent(Support.this, Support.class);
+//                ic.putExtra("user", user);
+                startActivity(ic);
+            }
+        });
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent ic = new Intent(Support.this, Profile.class);
+//                ic.putExtra("user", user);
+                startActivity(ic);
+            }
+        });
+
+        homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent ic = new Intent(Support.this, MainActivity.class);
+//                ic.putExtra("user", user);
+                startActivity(ic);
+            }
+        });
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent ic = new Intent(Support.this, Setting.class);
+//                ic.putExtra("user", user);
+                startActivity(ic);
+            }
+        });
     }
 
 
