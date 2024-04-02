@@ -8,7 +8,7 @@
     android:layout_marginRight="3dp"
     android:background="@drawable/cart_background"
     android:elevation="3dp"
-    tools:context=".List_Category.Pizza_List">
+    tools:context=".Pizza_List">
 
 
     <ImageView

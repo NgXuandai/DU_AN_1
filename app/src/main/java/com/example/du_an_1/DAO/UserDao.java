@@ -164,4 +164,20 @@ public class UserDao {
         }
         return tenTV;
     }
+    String sdtTV;
+    public String getsdtTV(String maTV) {
+        try {
+            Cursor cursor = db.rawQuery("SELECT sDT FROM User WHERE maDN=?", new String[] {String.valueOf(maTV)});
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    sdtTV = cursor.getString(0);
+                    cursor.moveToNext();
+                }
+            }
+        } catch (Exception e) {
+            Log.i(TAG, "Lỗi" + e);
+        }
+        return sdtTV;
+    }
 }
