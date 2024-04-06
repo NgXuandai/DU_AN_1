@@ -55,9 +55,9 @@ public class Adapter_user extends RecyclerView.Adapter<Adapter_user.myViewHolder
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
         User user = arrayList.get(position);
-        holder.tvTen.setText("Tên: "+user.getHoTen());
-        holder.tvMa.setText("Mã DN: "+user.getMaDN());
-        holder.tvSdt.setText("MK: "+user.getsDt());
+        holder.tvTen.setText("Tên : "+user.getHoTen());
+        holder.tvMa.setText("Mã : "+user.getMaDN());
+        holder.tvSdt.setText("SĐT : "+user.getsDt());
 
         if (check == 1){
             if (arrayList.get(position).getVaiTro() == 0){
@@ -137,10 +137,13 @@ public class Adapter_user extends RecyclerView.Adapter<Adapter_user.myViewHolder
         Button btn_doi ;
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
+
             img = itemView.findViewById(R.id.img_user);
+
             tvTen = itemView.findViewById(R.id.tv_name_user);
             tvMa  = itemView.findViewById(R.id.tv_ma_user);
             tvSdt = itemView.findViewById(R.id.tv_sdt_user);
+
             btn_doi = itemView.findViewById(R.id.btn_dung);
         }
     }

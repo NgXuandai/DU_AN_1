@@ -111,7 +111,6 @@ public class UserDao {
     public long Update(User obj) {
         ContentValues values = new ContentValues();
         values.put("maDN", obj.getMaDN());
-        values.put("matKhau", obj.getMatKhau());
         values.put("hoTen", obj.getHoTen());
         values.put("sDT", obj.getsDt());
         return db.update("User", values, "maDN = ?", new String[]{String.valueOf(obj.getMaDN())});
