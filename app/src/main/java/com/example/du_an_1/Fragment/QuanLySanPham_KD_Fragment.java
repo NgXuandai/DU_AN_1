@@ -199,7 +199,7 @@ public class QuanLySanPham_KD_Fragment extends Fragment {
 
         listLoaiFood = new ArrayList<Type_Of_Food>();
         type_of_food_dao = new Type_Of_Food_DAO(context);
-        listLoaiFood = (ArrayList<Type_Of_Food>) type_of_food_dao.getAll();
+        listLoaiFood = (ArrayList<Type_Of_Food>) type_of_food_dao.getAllTY(0);
 
         spinnerAdapter = new LoaiFood_SpinerAdapter(context, listLoaiFood);
 
@@ -221,6 +221,7 @@ public class QuanLySanPham_KD_Fragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 maLoai = listLoaiFood.get(position).getMaLoai();
+                Toast.makeText(context, ""+maLoai, Toast.LENGTH_SHORT).show();
                 if (Integer.parseInt(type_of_food_dao.getTrangThai(maLoai))==0){
                     maLoai = listLoaiFood.get(position).getMaLoai();
                     Toast.makeText(dialog.getContext(), "Chọn " + listLoaiFood.get(position).getTenLoai(), Toast.LENGTH_SHORT).show();
@@ -241,7 +242,8 @@ public class QuanLySanPham_KD_Fragment extends Fragment {
             public void onClick(View v) {
                 if (!ed_idSp.getText().toString().isEmpty() && !ed_idSp.getText().toString().isEmpty() && !ed_tenSp.getText().toString().isEmpty() && !ed_giaSp.getText().toString().isEmpty() && !ed_mota.getText().toString().isEmpty()&&(Integer.parseInt(type_of_food_dao.getTrangThai(maLoai))!=1)) {
                     id_sp = ed_idSp.getText().toString();
-                    maloai = sp_loaiSp.getSelectedItemPosition();
+//                    maloai = sp_loaiSp.getSelectedItemPosition();
+                    maloai = maLoai ;
                     tensp = ed_tenSp.getText().toString();
                     giaSp = Integer.parseInt(ed_giaSp.getText().toString());
                     moTa = ed_mota.getText().toString();
