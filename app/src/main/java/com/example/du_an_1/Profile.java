@@ -72,7 +72,7 @@ public class Profile extends AppCompatActivity {
         txtDonHang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Profile.this, Cart_activity.class);
+                Intent i = new Intent(Profile.this, DonHang.class);
                 startActivity(i);
             }
         });

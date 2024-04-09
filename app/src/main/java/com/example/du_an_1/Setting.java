@@ -13,17 +13,25 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class Setting extends AppCompatActivity {
-    LinearLayout tv_logout, btn_change_pass;
+    LinearLayout tv_logout, btn_change_pass, btnHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         btn_change_pass = findViewById(R.id.btn_change_pass);
+        btnHistory = findViewById(R.id.btn_history);
+
         btn_change_pass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Setting.this, Change_pass.class));
+            }
+        });
+        btnHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Setting.this, DonHang.class));
             }
         });
         tv_logout = findViewById(R.id.tv_logout);

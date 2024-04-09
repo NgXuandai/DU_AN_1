@@ -23,6 +23,8 @@
             android:id="@+id/edt_ngaybatdau"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_edit_text"
+            android:padding="10dp"
             android:hint="Chọn ngày bắt đầu"/>
 
         <TextView
@@ -33,6 +35,8 @@
             android:id="@+id/edt_ngaykethuc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_edit_text"
+            android:padding="10dp"
             android:hint="Chọn ngày kết thúc"/>
 
         <Button
@@ -40,6 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Thống Kê"
+            android:backgroundTint="#FF9800"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"/>
         <TextView
@@ -47,6 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0 vnd"
+            android:layout_marginTop="30dp"
             android:textSize="24sp"
             android:textColor="#E10909"
             android:layout_gravity="center"/>

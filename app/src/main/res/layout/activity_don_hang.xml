@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Fragment.Fragmnet_quanLyHoaDon"
+    tools:context=".DonHang"
     android:orientation="vertical">
 
     <LinearLayout
@@ -21,17 +21,17 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/btnDangDen"
+                android:id="@+id/btnDanggiao"
                 android:layout_width="206sp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:background="@color/menuDriver"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/tvDangDen"
+                    android:id="@+id/tvDangGiao"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Xác nhận"
+                    android:text="đang giao hàng"
                     android:textStyle="bold"
                     android:textSize="18dp"
                     android:textColor="@color/white"
@@ -40,13 +40,13 @@
                     android:gravity="center"/>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/btnLichSu"
+                android:id="@+id/btnhistoryDh"
                 android:layout_width="206sp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/tvLichSu"
+                    android:id="@+id/tvLichSudh"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="@string/history"

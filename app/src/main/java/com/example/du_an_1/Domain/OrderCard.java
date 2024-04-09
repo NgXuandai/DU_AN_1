@@ -38,17 +38,37 @@ public class OrderCard extends LinearLayout {
 
         Button btnConfirm = findViewById(R.id.btnConfirmOrder);
         btnConfirm.setOnClickListener(view -> {
-            order.setStatus("Delivered");
-            dao_gioHang.updateOrder(order);
-            Toast.makeText(context, "Đã cập nhật lại trạng thái!", Toast.LENGTH_SHORT).show();
+            if (order.getStatus().equals("Coming")){
+                order.setStatus("Delivered");
+                dao_gioHang.updateOrder(order);
+                Toast.makeText(context, "Đã cập nhật lại trạng thái!", Toast.LENGTH_SHORT).show();
+            }
+            if (order.getStatus().equals("succes")){
+                order.setStatus("Coming");
+                dao_gioHang.updateOrder(order);
+                Toast.makeText(context, "Đã xác nhận!", Toast.LENGTH_SHORT).show();
+            }
         });
         if(order.getStatus().equals("Delivered")){
             btnConfirm.setEnabled(false);
+        }
+        if(order.getStatus().equals("Coming")){
+            btnConfirm.setEnabled(true);
+        }
+        if(order.getStatus().equals("succes")){
+            btnConfirm.setEnabled(true);
+            btnConfirm.setText("Xác nhận");
+        }
+        if (order.getStatus().equals("succes") == true){
+            if(order.getStatus().equals("Coming")){
+                btnConfirm.setEnabled(true);
+            }
         }
         if(order.getStatus().equals("Canceled")){
             btnConfirm.setText("ĐÃ HỦY ĐƠN");
             btnConfirm.setEnabled(false);
         }
+
 
         tvDate.setText(order.getDateOfOrder());
         tvAddress.setText(order.getAddress());

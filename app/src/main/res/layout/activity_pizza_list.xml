@@ -267,11 +267,11 @@
             android:id="@+id/float_cart_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#ff5e00"
+            android:backgroundTint="#E91E63"
             android:elevation="3dp"
             android:src="@drawable/icon_shopping_cart"
             android:tint="#ffffff"
-            app:backgroundTint="#ff5e00"
+            app:backgroundTint="#E91E63"
             app:layout_anchor="@id/app_bar"
             app:maxImageSize="30dp">
 
