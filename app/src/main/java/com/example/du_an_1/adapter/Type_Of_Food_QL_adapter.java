@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,7 @@ import com.example.du_an_1.Fragment.QuanLySanLoaiPham_NKD_Fragment;
 import com.example.du_an_1.NavigationQuanLy;
 import com.example.du_an_1.R;
 import com.example.du_an_1.model.Type_Of_Food;
+import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 import java.util.List;
@@ -44,9 +46,9 @@ public class Type_Of_Food_QL_adapter extends RecyclerView.Adapter<Type_Of_Food_Q
     Type_Of_Food_DAO type_of_food_dao;
     QuanLySanLoaiPham_NKD_Fragment quanLyLoaiSanPham_nkd_fragment;
     QuanLyLoaiSanPhamKD quanLyLoaiSanPham_kd_fragment;
-    private ViewHolder currentViewHolder;
+    public OnclickItem onclickItem;
     int trangthai = 0;
-    public Type_Of_Food_QL_adapter(Context context, List<Type_Of_Food> list, int trangthai) {
+    public Type_Of_Food_QL_adapter(Context context, List<Type_Of_Food> list, int trangthai, OnclickItem onclickItem) {
         this.context = context;
         this.list = list;
         navigationQuanLy = (NavigationQuanLy) context;
@@ -54,6 +56,7 @@ public class Type_Of_Food_QL_adapter extends RecyclerView.Adapter<Type_Of_Food_Q
         type_of_food_dao = new Type_Of_Food_DAO(context);
         quanLyLoaiSanPham_nkd_fragment = new QuanLySanLoaiPham_NKD_Fragment();
         quanLyLoaiSanPham_kd_fragment = new QuanLyLoaiSanPhamKD();
+        this.onclickItem = onclickItem;
     }
 
     @NonNull
@@ -67,15 +70,10 @@ public class Type_Of_Food_QL_adapter extends RecyclerView.Adapter<Type_Of_Food_Q
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-
-        holder.tv_ma_sp.setText("Mã: "+list.get(position).getMaLoai());
-        holder.tv_title.setText(list.get(position).getTenLoai());
-        holder.img_pic.setImageURI(list.get(position).hienthi(context));
-        currentViewHolder = holder; // Lưu trữ holder hiện tại
-        // Lưu trữ hình ảnh hiện tại của đối tượng đang được hiển thị
-        byte[] currentImage = list.get(position).getHinhAnh();
-        holder.setCurrentImage(currentImage);
-
+           Type_Of_Food tof = list.get(position);
+        holder.tv_ma_sp.setText("Mã: "+tof.getMaLoai());
+        holder.tv_title.setText(tof.getTenLoai());
+        Picasso.get().load(Uri.parse(tof.getHinhAnh())).into(holder.img_pic);
         if (trangthai ==1){
             holder.tv_btn_delete.setText("????");
             holder.tv_btn_update.setText("Restore");
@@ -147,7 +145,7 @@ public class Type_Of_Food_QL_adapter extends RecyclerView.Adapter<Type_Of_Food_Q
                 if (trangthai == 1) {
                     khoiphuc();
                 } else {
-                    update(position);
+                    onclickItem.updateCategory(position);
                 }
             }
 
@@ -182,85 +180,6 @@ public class Type_Of_Food_QL_adapter extends RecyclerView.Adapter<Type_Of_Food_Q
         });
     }
 
-
-    public void update(int position) {
-        Type_Of_Food tOF = list.get(position);
-        LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        View view = inflater.inflate(R.layout.dialog_them_loai_sp, null);
-        builder.setView(view);
-        Dialog dialog = builder.create();
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
-        // Ánh xạ
-        TextView title = view.findViewById(R.id.tv_tilte_sp);
-        title.setText("Update Loại sản phẩm");
-
-        EditText ed_idlSp = view.findViewById(R.id.txtIdSanPhamThem);
-        EditText ed_tenlSp = view.findViewById(R.id.txtTenSanPhamThem);
-        Button btn_themsp = view.findViewById(R.id.btnSaveThem);
-        Button btn_themAnh = view.findViewById(R.id.btnlayanh);
-        Button back = view.findViewById(R.id.btnCancelThem);
-
-        ed_idlSp.setCursorVisible(false);
-
-//        final Type_Of_Food[] getID = {new Type_Of_Food()};
-//        getID[0].setId(list.get(position).getId());
-        Calendar lich = Calendar.getInstance();
-        int ngay = lich.get(Calendar.DAY_OF_MONTH);
-        int thang = lich.get(Calendar.MONTH);
-        int nam = lich.get(Calendar.YEAR);
-
-        ed_idlSp.setText(tOF.getMaLoai()+"");
-        ed_tenlSp.setText(tOF.getTenLoai());
-        Log.e(TAG, "update: "+ tOF.getMaLoai());
-        Log.e(TAG, "update: "+ed_tenlSp.getText().toString() );
-
-
-        btn_themAnh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigationQuanLy.importAnh();
-            }
-        });
-
-        btn_themsp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!ed_idlSp.getText().toString().isEmpty() && !ed_idlSp.getText().toString().isEmpty()) {
-                    tOF.setMaLoai(Integer.parseInt(ed_idlSp.getText().toString()));
-                    tOF.setTenLoai(ed_tenlSp.getText().toString());
-                    // Kiểm tra xem ảnh có thay đổi không
-                    if (navigationQuanLy.getAnh() != null) {
-                        tOF.setHinhAnh(navigationQuanLy.getAnh());
-                    } else {
-                        // Nếu không có sự thay đổi, sử dụng ảnh hiện tại
-                        tOF.setHinhAnh(currentViewHolder.getCurrentImage());
-                    }
-
-                    if (type_of_food_dao.Update(tOF) > 0) {
-                        Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
-
-                        FragmentManager manager = navigationQuanLy.getSupportFragmentManager();
-                        manager.beginTransaction().replace(R.id.framelayout, new Frag_load_2()).commit();
-                        dialog.dismiss();
-                    } else {
-                        Toast.makeText(context, "Sửa  thất bại", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(dialog.getContext(), "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-    }
 
     @Override
     public int getItemCount() {
@@ -301,5 +220,8 @@ public class Type_Of_Food_QL_adapter extends RecyclerView.Adapter<Type_Of_Food_Q
             list.addAll(type_of_food_dao.getAllTY(trangthai));
             notifyDataSetChanged();
         }
+    }
+    public interface OnclickItem{
+        void updateCategory(int position);
     }
 }

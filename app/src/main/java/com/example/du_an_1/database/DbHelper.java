@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 
 public class DbHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = "FOODFPOLY";
-    public static final int DB_VERSION = 4;
+    public static final int DB_VERSION = 7;
 
     public DbHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -48,7 +48,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
         String createTableLoaiFood = "CREATE TABLE loai_Food(maLoai INTEGER PRIMARY KEY UNIQUE NOT NULL," +
                 "tenLoai TEXT UNIQUE NOT NULL,"+
-                "anh BLOB,"+
+                "anh TEXT NOT NULL,"+
                 "tinhTrang INTEGER DEFAULT (0))";
 
         String createTableFood = "create table FOOD(maFood TEXT PRIMARY KEY UNIQUE NOT NULL," +
@@ -77,7 +77,7 @@ public class DbHelper extends SQLiteOpenHelper {
                         "PRIMARY KEY (id_ctdh, maFood ))";
 
         String addAdmin = "INSERT INTO User(maDN,matKhau,hoTen,sDT,vaiTro) VALUES('admin','admin','Admin','admin',1)";
-        String addLoai = "INSERT INTO loai_Food(maLoai, tenLoai, anh,tinhTrang) VALUES(1,'burger',null,0)";
+        String addLoai = "INSERT INTO loai_Food(maLoai, tenLoai, anh,tinhTrang) VALUES(1,'burger','',0)";
         String addPizza = "INSERT INTO FOOD(maFood,maLoai,tenFood,giaFood,hinhAnh,moTa,trangThai) VALUES('sp1',1,'HamBurger',20000,null,'abc',0)";
 
         db.execSQL(createTableUser);
@@ -98,6 +98,7 @@ public class DbHelper extends SQLiteOpenHelper {
             db.execSQL("drop table if exists loai_Food");
             db.execSQL("drop table if exists FOOD");
             db.execSQL("drop table if exists DON_HANG");
+            db.execSQL("drop table if exists gioHang");
             db.execSQL("drop table if exists CHI_TIET_DON_HANG");
             onCreate(db);
         }

@@ -56,7 +56,8 @@ public class FoodAdapter_ql extends RecyclerView.Adapter<FoodAdapter_ql.ViewHold
     QuanLySanPham_KD_Fragment quanLySanPham_kd_fragment;
     private ViewHolder currentViewHolder;
     int trangthai = 0;
-    public FoodAdapter_ql(Context context, List<Food> list, int trangthai) {
+    public OnclickItem onclickItem;
+    public FoodAdapter_ql(Context context, List<Food> list, int trangthai, OnclickItem onclickItem) {
         this.context = context;
         this.list = list;
         navigationQuanLy = (NavigationQuanLy) context;
@@ -64,6 +65,7 @@ public class FoodAdapter_ql extends RecyclerView.Adapter<FoodAdapter_ql.ViewHold
         food_dao = new Food_DAO(context);
         quanLySanPham_nkd_fragment = new QuanLySanPham_NKD_Fragment();
         quanLySanPham_kd_fragment = new QuanLySanPham_KD_Fragment();
+        this.onclickItem = onclickItem;
     }
 
     @NonNull
@@ -171,7 +173,7 @@ public class FoodAdapter_ql extends RecyclerView.Adapter<FoodAdapter_ql.ViewHold
                 if (trangthai == 1) {
                     khoiphuc();
                 } else {
-                    update(position);
+                    onclickItem.UpdateSP(position);
                 }
             }
 
@@ -203,7 +205,9 @@ public class FoodAdapter_ql extends RecyclerView.Adapter<FoodAdapter_ql.ViewHold
         });
     }
 
-
+     public interface OnclickItem{
+        void UpdateSP(int position);
+     }
     public void update(int position) {
         Food DTO_sp = list.get(position);
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
@@ -295,7 +299,7 @@ public class FoodAdapter_ql extends RecyclerView.Adapter<FoodAdapter_ql.ViewHold
 
                     if ((food_dao.Update(DTO_sp) > 0)&& (Integer.parseInt(type_of_food_dao.getTrangThai(maLoai))!=1)) {
                         Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
-
+                        notifyDataSetChanged();
                         FragmentManager manager = navigationQuanLy.getSupportFragmentManager();
                         manager.beginTransaction().replace(R.id.framelayout, new Frag_load()).commit();
                         dialog.dismiss();

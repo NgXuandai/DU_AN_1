@@ -3,6 +3,7 @@ package com.example.du_an_1.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,11 +59,7 @@ public class Type_Of_Food_ListCategory_Adapter extends RecyclerView.Adapter<Type
         user_dao = new UserDao(context);
 
         holder.tv_title.setText(list.get(position).getTenLoai());
-        holder.img_pic.setImageURI(list.get(position).hienthi(context));
-        currentViewHolder = holder; // Lưu trữ holder hiện tại
-        // Lưu trữ hình ảnh hiện tại của đối tượng đang được hiển thị
-        byte[] currentImage = list.get(position).getHinhAnh();
-        holder.setCurrentImage(currentImage);
+        holder.img_pic.setImageURI(Uri.parse(list.get(position).getHinhAnh()));
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -23,7 +23,7 @@ import java.util.List;
  * Use the {@link QuanLySanLoaiPham_NKD_Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class QuanLySanLoaiPham_NKD_Fragment extends Fragment {
+public class QuanLySanLoaiPham_NKD_Fragment extends Fragment implements Type_Of_Food_QL_adapter.OnclickItem{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,7 +82,7 @@ public class QuanLySanLoaiPham_NKD_Fragment extends Fragment {
         rc_list = view.findViewById(R.id.rcv_loaisanpham_ngung);
         type_of_food_dao = new Type_Of_Food_DAO(getContext());
         list = type_of_food_dao.getAllTY(1);
-        type_of_food_ql_adapter = new Type_Of_Food_QL_adapter(view.getContext(), list,1);
+        type_of_food_ql_adapter = new Type_Of_Food_QL_adapter(view.getContext(), list,1, QuanLySanLoaiPham_NKD_Fragment.this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rc_list.setAdapter(type_of_food_ql_adapter);
         rc_list.setLayoutManager(linearLayoutManager);
@@ -91,5 +91,10 @@ public class QuanLySanLoaiPham_NKD_Fragment extends Fragment {
 
     public void loadData() {
         type_of_food_ql_adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void updateCategory(int position) {
+
     }
 }

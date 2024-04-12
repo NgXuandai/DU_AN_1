@@ -1,15 +1,19 @@
 package com.example.du_an_1.Fragment;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +24,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,7 +50,7 @@ import java.util.List;
  * Use the {@link QuanLySanPham_KD_Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class QuanLyLoaiSanPhamKD extends Fragment {
+public class QuanLyLoaiSanPhamKD extends Fragment implements Type_Of_Food_QL_adapter.OnclickItem{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -75,6 +81,9 @@ public class QuanLyLoaiSanPhamKD extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     Calendar lich = Calendar.getInstance();
     int maLoai;
+    int a;
+    EditText ed_idSp,ed_tenSp;
+    Button btn_themsp,btn_themAnh;
     public static QuanLyLoaiSanPhamKD newInstance(String param1, String param2) {
         QuanLyLoaiSanPhamKD fragment = new QuanLyLoaiSanPhamKD();
         Bundle args = new Bundle();
@@ -111,28 +120,23 @@ public class QuanLyLoaiSanPhamKD extends Fragment {
         FloatingActionButton floatThem = view.findViewById(R.id.fab);
         recyclerView = view.findViewById(R.id.rcv_LSP);
         navigationQuanLy = (NavigationQuanLy) getContext();
-        list = type_of_food_dao.getAllTY(0);
-        type_of_food_ql_adapter = new Type_Of_Food_QL_adapter(view.getContext(), list,0);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(type_of_food_ql_adapter);
-        type_of_food_ql_adapter.notifyDataSetChanged();
+        getData();
         floatThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Gán ảnh
-                int drawableResourceId = R.drawable.add_food;
-                Uri drawableUri = new Uri.Builder()
-                        .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
-                        .authority(getResources().getResourcePackageName(drawableResourceId))
-                        .appendPath(getResources().getResourceTypeName(drawableResourceId))
-                        .appendPath(getResources().getResourceEntryName(drawableResourceId))
-                        .build();
-                selectedImage = drawableUri;
-                showDialogAdd(getActivity());
+                a=-1;
+                showDialogAdd();
             }
         });
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    private void getData() {
+        list = type_of_food_dao.getAllTY(0);
+        type_of_food_ql_adapter = new Type_Of_Food_QL_adapter(getActivity(), list,0, QuanLyLoaiSanPhamKD.this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(type_of_food_ql_adapter);
     }
 
 
@@ -147,40 +151,71 @@ public class QuanLyLoaiSanPhamKD extends Fragment {
             Toast.makeText(navigationQuanLy, "Chọn ảnh thành công", Toast.LENGTH_SHORT).show();
         }
     }
-    private void showDialogAdd(final Context context) {
-        dialog = new Dialog(context);
+    private void showDialogAdd() {
+        dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.dialog_them_loai_sp);
         //ánh xạ
-        EditText ed_idSp = dialog.findViewById(R.id.txtIdSanPhamThem);
-        EditText ed_tenSp = dialog.findViewById(R.id.txtTenSanPhamThem);
-        Button btn_themsp = dialog.findViewById(R.id.btnSaveThem);
-        Button btn_themAnh = dialog.findViewById(R.id.btnlayanh);
-
+         ed_idSp = dialog.findViewById(R.id.txtIdSanPhamThem);
+         ed_tenSp = dialog.findViewById(R.id.txtTenSanPhamThem);
+         btn_themsp = dialog.findViewById(R.id.btnSaveThem);
+         btn_themAnh = dialog.findViewById(R.id.btnlayanh);
+          if(!dialog.isShowing()){
+              ed_idSp.setText("");
+              ed_tenSp.setText("");
+              selectedImage = Uri.parse("");
+          }
 //        int ngay = lich.get(Calendar.DAY_OF_MONTH);
 //        int thang = lich.get(Calendar.MONTH);
 //        int nam = lich.get(Calendar.YEAR);
         btn_themAnh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, 1);
+                    openAnh();
             }
         });
 
 //        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        btn_themsp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!ed_idSp.getText().toString().isEmpty()&&!ed_tenSp.getText().toString().isEmpty()) {
+        if(a==-1){
+            btn_themsp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!ed_idSp.getText().toString().isEmpty()&&!ed_tenSp.getText().toString().isEmpty() && !selectedImage.toString().isEmpty()) {
+                        id_lsp = Integer.parseInt(ed_idSp.getText().toString());
+                        tenlsp = ed_tenSp.getText().toString();
+                        openDialog_tb(dialog);
+                    } else {
+                        Toast.makeText(getContext(), "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }else {
+            Type_Of_Food tof = list.get(a);
+            Log.d("Huy", "showDialogAdd: "+a);
+            ed_idSp.setText(""+tof.getMaLoai());
+            ed_tenSp.setText(""+tof.getTenLoai());
+            selectedImage = Uri.parse(tof.getHinhAnh());
+            btn_themsp.setOnClickListener(v -> {
+                if (!ed_idSp.getText().toString().isEmpty()&&!ed_tenSp.getText().toString().isEmpty() && !selectedImage.toString().isEmpty()) {
+                    Type_Of_Food type = new Type_Of_Food();
                     id_lsp = Integer.parseInt(ed_idSp.getText().toString());
                     tenlsp = ed_tenSp.getText().toString();
-                    anh = getAnh(selectedImage);
-                    openDialog_tb(dialog);
+                    type.setMaLoai(id_lsp);
+                    type.setTenLoai(tenlsp);
+                    type.setHinhAnh(String.valueOf(selectedImage));
+                    if(type_of_food_dao.Update(type)>0){
+                        Toast.makeText(getActivity(), "Update thành công", Toast.LENGTH_SHORT).show();
+                        getData();
+                        dialog.dismiss();
+                    }else {
+                        Toast.makeText(getActivity(), "update thất bại", Toast.LENGTH_SHORT).show();
+                    }
+
                 } else {
                     Toast.makeText(getContext(), "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
+            });
+        }
+
         dialog.findViewById(R.id.btnCancelThem).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,68 +225,43 @@ public class QuanLyLoaiSanPhamKD extends Fragment {
         dialog.show();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
+    private void openAnh(){
+        Intent intent = new Intent(Intent.ACTION_PICK,  MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, 1);
+    }
     public void openDialog_tb(Dialog dialog1) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Save");
-        builder.setMessage("Bạn có chắc chắn muốn Save không?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (checkten() == 0) {
-                    if (id_lsp >= 0) {
-                        if (themSP() > 0) {
-                            dialog.dismiss();
-                            Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-                            dialog1.dismiss();
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("Save");
+            builder.setMessage("Bạn có chắc chắn muốn Save không?");
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (checkten() == 0) {
+                        if (id_lsp >= 0) {
+                            if (themSP() > 0) {
+                                dialog.dismiss();
+                                Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                dialog1.dismiss();
+                            } else {
+                                Toast.makeText(getContext(), "Mã sản phẩm đã tồn tại vui lòng kiểm tra lại", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
-                            Toast.makeText(getContext(), "Mã sản phẩm đã tồn tại vui lòng kiểm tra lại", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Không để trống mã sản phẩm", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(getContext(), "Không để trống mã sản phẩm", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Tên sản phẩm đã tồn tại", Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    Toast.makeText(getContext(), "Tên sản phẩm đã tồn tại", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-    public byte[] getAnh(Uri selectedImage) {
-        // Max allowed size in bytes
-        int maxSize = 1024 * 1024; // 1MB
-        try {
-            InputStream inputStream = getContext().getContentResolver().openInputStream(selectedImage);
-            // Đọc ảnh vào một đối tượng Bitmap
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inJustDecodeBounds = true;
-            BitmapFactory.decodeStream(inputStream, null, options);
-            // Tính toán tỷ lệ nén cần áp dụng để đảm bảo kích thước không vượt quá maxSize
-            int scale = 1;
-            while ((options.outWidth * options.outHeight) * (1 / Math.pow(scale, 2)) > maxSize) {
-                scale++;
-            }
-            options.inSampleSize = scale;
-            options.inJustDecodeBounds = false;
-            inputStream.close();
-            // Đọc ảnh lại với tỷ lệ nén
-            inputStream = getContext().getContentResolver().openInputStream(selectedImage);
-            Bitmap selectedBitmap = BitmapFactory.decodeStream(inputStream, null, options);
-            // Chuyển đổi Bitmap thành byte array
-            ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
-            selectedBitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteBuffer); // Thay đổi định dạng và chất lượng nén tùy theo nhu cầu
-            byte[] imageData = byteBuffer.toByteArray();
-            return imageData;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
     }
     public void loadData() {
         list.clear();
@@ -263,7 +273,7 @@ public class QuanLyLoaiSanPhamKD extends Fragment {
         type_of_food = new Type_Of_Food();
         type_of_food.setMaLoai(id_lsp);
         type_of_food.setTenLoai(tenlsp);
-        type_of_food.setHinhAnh(anh);
+        type_of_food.setHinhAnh(String.valueOf(selectedImage));
         int maND = 1;
         checkten();
         a = type_of_food_dao.ADDSanPham(type_of_food);
@@ -289,5 +299,12 @@ public class QuanLyLoaiSanPhamKD extends Fragment {
             }
         }
         return listCheck;
+    }
+
+    @Override
+    public void updateCategory(int position) {
+        a=position;
+        Log.d("Huy", "updateCategory: "+a);
+        showDialogAdd();
     }
 }

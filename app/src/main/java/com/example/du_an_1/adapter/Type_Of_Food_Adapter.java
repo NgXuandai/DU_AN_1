@@ -18,6 +18,7 @@ import com.example.du_an_1.MainActivity;
 import com.example.du_an_1.Pizza_List;
 import com.example.du_an_1.R;
 import com.example.du_an_1.model.Type_Of_Food;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,12 +56,8 @@ public class Type_Of_Food_Adapter extends RecyclerView.Adapter<Type_Of_Food_Adap
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         holder.tv_title.setText(list.get(position).getTenLoai());
-        holder.img_pic.setImageURI(list.get(position).hienthi(context));
+        Picasso.get().load(list.get(position).getHinhAnh()).into(holder.img_pic);
         currentViewHolder = holder; // Lưu trữ holder hiện tại
-        // Lưu trữ hình ảnh hiện tại của đối tượng đang được hiển thị
-        byte[] currentImage = list.get(position).getHinhAnh();
-        holder.setCurrentImage(currentImage);
-
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

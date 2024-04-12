@@ -51,7 +51,7 @@ import java.util.List;
  * Use the {@link QuanLySanPham_KD_Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class QuanLySanPham_KD_Fragment extends Fragment {
+public class QuanLySanPham_KD_Fragment extends Fragment implements FoodAdapter_ql.OnclickItem{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -85,6 +85,7 @@ public class QuanLySanPham_KD_Fragment extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     Calendar lich = Calendar.getInstance();
     int maLoai;
+    int a;
     public static QuanLySanPham_KD_Fragment newInstance(String param1, String param2) {
         QuanLySanPham_KD_Fragment fragment = new QuanLySanPham_KD_Fragment();
         Bundle args = new Bundle();
@@ -122,7 +123,7 @@ public class QuanLySanPham_KD_Fragment extends Fragment {
         recyclerView = view.findViewById(R.id.rcv_SP);
         navigationQuanLy = (NavigationQuanLy) getContext();
         list = dao_food.getAll(0);
-        adapter_food = new FoodAdapter_ql(view.getContext(), list,0);
+        adapter_food = new FoodAdapter_ql(view.getContext(), list,0, QuanLySanPham_KD_Fragment.this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter_food);
@@ -145,15 +146,8 @@ public class QuanLySanPham_KD_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Gán ảnh
-                int drawableResourceId = R.drawable.signup;
-                Uri drawableUri = new Uri.Builder()
-                        .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
-                        .authority(getResources().getResourcePackageName(drawableResourceId))
-                        .appendPath(getResources().getResourceTypeName(drawableResourceId))
-                        .appendPath(getResources().getResourceEntryName(drawableResourceId))
-                        .build();
-                selectedImage = drawableUri;
-                showDialogAdd(getActivity());
+               a=-1;
+                showDialogAdd();
             }
         });
         super.onViewCreated(view, savedInstanceState);
@@ -165,7 +159,7 @@ public class QuanLySanPham_KD_Fragment extends Fragment {
                 listSearch.add(food);
             }
         }
-        adapter_food = new FoodAdapter_ql(getContext(), listSearch,0);
+        adapter_food = new FoodAdapter_ql(getContext(), listSearch,0,QuanLySanPham_KD_Fragment.this);
         recyclerView.setAdapter(adapter_food);
 
     }
@@ -183,8 +177,8 @@ public class QuanLySanPham_KD_Fragment extends Fragment {
             Toast.makeText(navigationQuanLy, "Chọn ảnh thành công", Toast.LENGTH_SHORT).show();
         }
     }
-    private void showDialogAdd(final Context context) {
-        dialog = new Dialog(context);
+    private void showDialogAdd() {
+        dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.dialog_them_sp);
         //ánh xạ
         EditText ed_idSp = dialog.findViewById(R.id.txtIdSanPhamThem);
@@ -198,10 +192,10 @@ public class QuanLySanPham_KD_Fragment extends Fragment {
 
 
         listLoaiFood = new ArrayList<Type_Of_Food>();
-        type_of_food_dao = new Type_Of_Food_DAO(context);
+        type_of_food_dao = new Type_Of_Food_DAO(getActivity());
         listLoaiFood = (ArrayList<Type_Of_Food>) type_of_food_dao.getAllTY(0);
 
-        spinnerAdapter = new LoaiFood_SpinerAdapter(context, listLoaiFood);
+        spinnerAdapter = new LoaiFood_SpinerAdapter(getActivity(), listLoaiFood);
 
         sp_loaiSp.setAdapter(spinnerAdapter);
 
@@ -221,7 +215,7 @@ public class QuanLySanPham_KD_Fragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 maLoai = listLoaiFood.get(position).getMaLoai();
-                Toast.makeText(context, ""+maLoai, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), ""+maLoai, Toast.LENGTH_SHORT).show();
                 if (Integer.parseInt(type_of_food_dao.getTrangThai(maLoai))==0){
                     maLoai = listLoaiFood.get(position).getMaLoai();
                     Toast.makeText(dialog.getContext(), "Chọn " + listLoaiFood.get(position).getTenLoai(), Toast.LENGTH_SHORT).show();
@@ -237,23 +231,66 @@ public class QuanLySanPham_KD_Fragment extends Fragment {
             }
         });
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        btn_themsp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if(a==-1){
+            btn_themsp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!ed_idSp.getText().toString().isEmpty() && !ed_idSp.getText().toString().isEmpty() && !ed_tenSp.getText().toString().isEmpty() && !ed_giaSp.getText().toString().isEmpty() && !ed_mota.getText().toString().isEmpty()&&(Integer.parseInt(type_of_food_dao.getTrangThai(maLoai))!=1)) {
+                        id_sp = ed_idSp.getText().toString();
+//                    maloai = sp_loaiSp.getSelectedItemPosition();
+                        maloai = maLoai ;
+                        tensp = ed_tenSp.getText().toString();
+                        giaSp = Integer.parseInt(ed_giaSp.getText().toString());
+                        moTa = ed_mota.getText().toString();
+                        anh = getAnh(selectedImage);
+                        openDialog_tb(dialog);
+                    } else {
+                        Toast.makeText(getContext(), "Vui lòng nhập đầy đủ thông tin và kiểm tra lại", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }else {
+            Food DTO_sp = list.get(a);
+            ed_idSp.setText(DTO_sp.getMaFood());
+            ed_tenSp.setText(DTO_sp.getTenFood());
+            ed_giaSp.setText(DTO_sp.getGiaFood()+"");
+            ed_mota.setText(DTO_sp.getMoTa());
+            sp_loaiSp.setId(DTO_sp.getMaLoai());
+            for(int i=0;i<sp_loaiSp.getCount();i++){
+                if(DTO_sp.getMaLoai() ==listLoaiFood.get(i).getMaLoai()){
+                    sp_loaiSp.setSelection(i);
+                }
+            }
+            btn_themsp.setOnClickListener(v -> {
                 if (!ed_idSp.getText().toString().isEmpty() && !ed_idSp.getText().toString().isEmpty() && !ed_tenSp.getText().toString().isEmpty() && !ed_giaSp.getText().toString().isEmpty() && !ed_mota.getText().toString().isEmpty()&&(Integer.parseInt(type_of_food_dao.getTrangThai(maLoai))!=1)) {
                     id_sp = ed_idSp.getText().toString();
 //                    maloai = sp_loaiSp.getSelectedItemPosition();
-                    maloai = maLoai ;
+                    maloai = maLoai;
                     tensp = ed_tenSp.getText().toString();
                     giaSp = Integer.parseInt(ed_giaSp.getText().toString());
                     moTa = ed_mota.getText().toString();
                     anh = getAnh(selectedImage);
-                    openDialog_tb(dialog);
-                } else {
-                    Toast.makeText(getContext(), "Vui lòng nhập đầy đủ thông tin và kiểm tra lại", Toast.LENGTH_SHORT).show();
+                    food = new Food();
+                    food.setMaFood(id_sp);
+                    food.setMaLoai(maloai);
+                    food.setTenFood(tensp);
+                    food.setGiaFood(giaSp);
+                    food.setMoTa(moTa);
+                    food.setHinhAnh(anh);
+                    if(dao_food.Update(food)>0){
+                        Toast.makeText(getActivity(), "Update thành công", Toast.LENGTH_SHORT).show();
+                        loadData();
+                        dialog.dismiss();
+                    }else {
+                        Toast.makeText(getActivity(), "update thất bại", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
+            });
+
+
+
+        }
+
         dialog.findViewById(R.id.btnCancelThem).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -365,5 +402,11 @@ public class QuanLySanPham_KD_Fragment extends Fragment {
             }
         }
         return listCheck;
+    }
+
+    @Override
+    public void UpdateSP(int position) {
+        a=position;
+        showDialogAdd();
     }
 }

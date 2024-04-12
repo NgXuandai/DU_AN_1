@@ -24,7 +24,7 @@ import java.util.List;
  * Use the {@link QuanLySanPham_NKD_Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class QuanLySanPham_NKD_Fragment extends Fragment {
+public class QuanLySanPham_NKD_Fragment extends Fragment implements FoodAdapter_ql.OnclickItem{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -83,7 +83,7 @@ public class QuanLySanPham_NKD_Fragment extends Fragment {
         rc_list = view.findViewById(R.id.rcv_sanpham_ngung);
         dao_sp = new Food_DAO(getContext());
         list = dao_sp.getAll(1);
-        adapter_sp = new FoodAdapter_ql(view.getContext(), list,1);
+        adapter_sp = new FoodAdapter_ql(view.getContext(), list,1, null);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rc_list.setAdapter(adapter_sp);
         rc_list.setLayoutManager(linearLayoutManager);
@@ -92,5 +92,10 @@ public class QuanLySanPham_NKD_Fragment extends Fragment {
 
     public void loadData() {
         adapter_sp.notifyDataSetChanged();
+    }
+
+    @Override
+    public void UpdateSP(int position) {
+
     }
 }

@@ -75,10 +75,8 @@ public class Food_DAO {
         values.put("giaFood", SP.getGiaFood());
         values.put("hinhAnh", SP.getHinhAnh());
         values.put("mota", SP.getMoTa());
-        String[] index = new String[]{
-                SP.getMaFood()
-        };
-        return db.update("FOOD", values, "maFood=?", index);
+
+        return db.update("FOOD", values, "maFood=?",new String[]{SP.getMaFood()});
     }
 
     public List<Food> getAll(int trangThai) {

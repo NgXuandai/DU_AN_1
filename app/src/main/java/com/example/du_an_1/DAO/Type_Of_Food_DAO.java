@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.util.Log;
 
 
@@ -27,7 +28,7 @@ public class Type_Of_Food_DAO {
         ContentValues values = new ContentValues();
         values.put("maLoai", LSP.getMaLoai());
         values.put("tenLoai", LSP.getTenLoai());
-        values.put("anh", LSP.getHinhAnh());
+        values.put("anh", String.valueOf(LSP.getHinhAnh()));
         return db.insert("loai_Food", null, values);
     }
 
@@ -63,11 +64,9 @@ public class Type_Of_Food_DAO {
         ContentValues values = new ContentValues();
         values.put("maLoai", LSP.getMaLoai());
         values.put("tenLoai", LSP.getTenLoai());
-        values.put("anh", LSP.getHinhAnh());
-        String[] index = new String[]{
-                String.valueOf(LSP.getMaLoai())
-        };
-        return db.update("loai_Food", values, "maLoai=?", index);
+        values.put("anh", String.valueOf(LSP.getHinhAnh()));
+
+        return db.update("loai_Food", values, "maLoai=?", new String[]{String.valueOf(LSP.getMaLoai())});
     }
     public List<Type_Of_Food> getAll() {
         String sql = "SELECT * FROM loai_Food";
@@ -84,7 +83,7 @@ public class Type_Of_Food_DAO {
 //                int maLoai = c.getInt(1);
                 String tenLoai = c.getString(1);
 //                int giaFood = c.getInt(3);
-                byte[] anh = c.getBlob(2);
+                String anh = c.getString(2);
 //                String moTa = c.getString(5);
                 int trangthai = c.getInt(3);
                 list.add(new Type_Of_Food(maLoai, tenLoai, anh, trangthai));
