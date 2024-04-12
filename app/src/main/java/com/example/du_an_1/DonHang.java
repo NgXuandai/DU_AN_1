@@ -30,10 +30,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Cart_activity extends AppCompatActivity {
+public class DonHang extends AppCompatActivity {
     public static LinearLayout cartContainer;
     private static String status;
-    private LinearLayout btnDangDen, btnLichSu, btnGioHang;
+    private LinearLayout btnDangDen, btnLichSu;
     private TextView tvGioHang, tvDangDen, tvLichSu;
     UserDao user_dao ;
     DAO_GioHang dao_gioHang;
@@ -46,7 +46,7 @@ public class Cart_activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cart);
+        setContentView(R.layout.activity_don_hang);
         SharedPreferences sharedPreferences = getSharedPreferences("USER_FILE", Context.MODE_PRIVATE);
         String usernameLogged = sharedPreferences.getString("USERNAME", "");
 
@@ -63,8 +63,8 @@ public class Cart_activity extends AppCompatActivity {
         mafoood = dao_chitietDonHang.getIdmF(ma_ctd);
 
         referencesComponent();
-        LoadOrder("craft");
-        status = "craft";
+        LoadOrder("coming");
+        status = "coming";
         Log.i("SQLite", mangdung+"");
     }
 
@@ -72,71 +72,29 @@ public class Cart_activity extends AppCompatActivity {
         user_dao = new UserDao(this);
         dao_chitietDonHang = new DAO_chitietDonHang(this);
 
-//        btnGioHang = findViewById(R.id.btnGioHang);
-//        btnGioHang.setOnClickListener(view ->{
-//            resetAttribute();
-//            btnGioHang.setBackground(ContextCompat.getDrawable(Objects.requireNonNull(this),R.color.menuDriver));
-//            tvGioHang.setTextColor(Color.WHITE);
-//
-//            LoadOrder("craft");
-//        });
-//
-//        btnDangDen = findViewById(R.id.btnDangDen);
-//        btnDangDen.setOnClickListener(view->{
-//            resetAttribute();
-//            btnDangDen.setBackground(ContextCompat.getDrawable(Objects.requireNonNull(this),R.color.menuDriver));
-//            tvDangDen.setTextColor(Color.WHITE);
-//
-//            LoadOrder("coming");
-//        });
-//
-//        btnLichSu = findViewById(R.id.btnLichSu);
-//        btnLichSu.setOnClickListener(view -> {
-//            resetAttribute();
-//            btnLichSu.setBackground(ContextCompat.getDrawable(Objects.requireNonNull(this),R.color.menuDriver));
-//            tvLichSu.setTextColor(Color.WHITE);
-//
-//            LoadOrder("history");
-//        });
+        btnDangDen = findViewById(R.id.btnDanggiao);
+        btnDangDen.setOnClickListener(view->{
+            resetAttribute();
+            btnDangDen.setBackground(ContextCompat.getDrawable(Objects.requireNonNull(this),R.color.menuDriver));
+            tvDangDen.setTextColor(Color.WHITE);
 
-//        tvGioHang = findViewById(R.id.tvGioHang);
-        tvDangDen = findViewById(R.id.tvDangDen);
-        tvLichSu = findViewById(R.id.tvLichSu);
-
-
-        Button btnThanhToan = findViewById(R.id.btnThanhToan);
-        btnThanhToan.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction()== MotionEvent.ACTION_DOWN){
-                    btnThanhToan.setTextColor(Color.RED);
-                }
-                if (motionEvent.getAction()== MotionEvent.ACTION_UP){
-                    btnThanhToan.setTextColor(Color.WHITE);
-                }
-                return false;
-            }
+            LoadOrder("coming");
         });
-        btnThanhToan.setOnClickListener(view ->{
-            if(!status.equals("craft"))
-                return;
 
-            dao_gioHang = new DAO_GioHang(this);
-            Cursor cursor = dao_gioHang.getCart(mangdung);
-            rememberIDUser(mangdung);
-            if(!cursor.moveToFirst())
-                return;
+        btnLichSu = findViewById(R.id.btnhistoryDh);
+        btnLichSu.setOnClickListener(view -> {
+            resetAttribute();
+            btnLichSu.setBackground(ContextCompat.getDrawable(Objects.requireNonNull(this),R.color.menuDriver));
+            tvLichSu.setTextColor(Color.WHITE);
 
-//            PaymentActivity.user = mangdung;
-            Intent intent = new Intent(this, PaymentActivity.class);
-            intent.putExtra("orderId", cursor.getInt(0));
-            startActivity(intent);
+            LoadOrder("history");
         });
-        Button btnTroVe = findViewById(R.id.btnTrolai);
-        btnTroVe.setOnClickListener(view ->{
-            finish();
-        });
+
+        tvDangDen = findViewById(R.id.tvDangGiao);
+        tvLichSu = findViewById(R.id.tvLichSudh);
+
+
+
     }
     public void rememberIDUser(int u) {
         SharedPreferences pref = getSharedPreferences("ID_USER_FILE", MODE_PRIVATE);
@@ -157,24 +115,7 @@ public class Cart_activity extends AppCompatActivity {
         status = type;
         cartContainer.removeAllViews();
         switch (type) {
-            case "craft":{
-                Cursor cursor = dao_gioHang.getCart(mangdung);
-                Log.i("SQLite", String.valueOf(cursor));
-                if (!cursor.moveToFirst())
-                    return;
-                cursor.moveToFirst();
-                dao_chitietDonHang = new DAO_chitietDonHang(this);
-                ArrayList<Splashscreenactivity.chitietDonHang> orderDetailArrayList = dao_chitietDonHang.getCartDetailList(cursor.getInt(0));
-//                list = dao_chitietDonHang.getCartDetailList(cursor.getInt(0));
-                if (orderDetailArrayList.size() > 0) {
-                    Food food;
-                    for (Splashscreenactivity.chitietDonHang orderDetail : orderDetailArrayList) {
-                        food = food_dao.getFoodById(mafoood);
-                        CartCard card = new CartCard(this, food, orderDetail);
-                        cartContainer.addView(card);
-                    }
-                }
-                break;}
+
             case "coming": {
                 ArrayList<GioHang> orderArrayList = dao_gioHang.getOrderOfUser(Integer.valueOf(user_dao.getMaND(usernameLogged)), "Coming");
                 if (orderArrayList.size() > 0) {
@@ -208,11 +149,10 @@ public class Cart_activity extends AppCompatActivity {
         }
     }
     private void resetAttribute(){
-        btnGioHang.setBackground(ContextCompat.getDrawable(Objects.requireNonNull(this),R.drawable.bg_white));
         btnDangDen.setBackground(ContextCompat.getDrawable(this,R.drawable.bg_white));
         btnLichSu.setBackground(ContextCompat.getDrawable(this,R.drawable.bg_white));
 
-        tvGioHang.setTextColor(Color.BLACK);
+
         tvLichSu.setTextColor(Color.BLACK);
         tvDangDen.setTextColor(Color.BLACK);
     }

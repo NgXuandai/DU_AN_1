@@ -24,7 +24,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Đơn Hàng"
+                android:text="Giỏ hàng"
                 android:textSize="35dp"
                 android:textStyle="bold"
                 android:textColor="@color/white"
@@ -33,67 +33,31 @@
                 android:paddingTop="10dp"
                 android:gravity="center"/>
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40sp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
-            <LinearLayout
-                android:id="@+id/btnGioHang"
-                android:layout_width="137sp"
-                android:layout_height="40sp"
-                android:layout_gravity="center"
-                android:orientation="vertical"
-                android:background="@color/menuDriver">
-                <TextView
-                    android:id="@+id/tvGioHang"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Giỏ hàng"
-                    android:textStyle="bold"
-                    android:textSize="18dp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/ops"
-                    android:layout_gravity="center"
-                    android:gravity="center"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/btnDangDen"
-                android:layout_width="137sp"
-                android:layout_height="40sp"
-                android:layout_gravity="center"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tvDangDen"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="đang đến"
-                    android:textStyle="bold"
-                    android:textSize="18dp"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/ops"
-                    android:layout_gravity="center"
-                    android:gravity="center"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/btnLichSu"
-                android:layout_width="137sp"
-                android:layout_height="40sp"
-                android:layout_gravity="center"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tvLichSu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="lịch Sử"
-                    android:textStyle="bold"
-                    android:textSize="18dp"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/ops"
-                    android:layout_gravity="center"
-                    android:gravity="center"/>
-            </LinearLayout>
-        </LinearLayout>
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="40sp"-->
+<!--            android:gravity="center_horizontal"-->
+<!--            android:orientation="horizontal">-->
+<!--            <LinearLayout-->
+<!--                android:id="@+id/btnGioHang"-->
+<!--                android:layout_width="137sp"-->
+<!--                android:layout_height="40sp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:orientation="vertical"-->
+<!--                android:background="@color/menuDriver">-->
+<!--                <TextView-->
+<!--                    android:id="@+id/tvGioHang"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:text="Giỏ hàng"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:textSize="18dp"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:fontFamily="@font/ops"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:gravity="center"/>-->
+<!--            </LinearLayout>-->
+
     </LinearLayout>
 
     <ScrollView

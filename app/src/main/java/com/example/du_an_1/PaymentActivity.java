@@ -82,7 +82,7 @@ public class PaymentActivity extends AppCompatActivity {
             }
             dateOfOrder = dao_gioHang.getDate();
 
-            GioHang order = new GioHang(orderId,  Integer.parseInt(user_dao.getMaND(usernameLogged)), address, dateOfOrder,  sum, "Coming");
+            GioHang order = new GioHang(orderId,  Integer.parseInt(user_dao.getMaND(usernameLogged)), address, dateOfOrder,  sum, "succes");
             dao_gioHang.updateOrder(order);
 
             Toast.makeText(this, "Đã thanh toán thành công!", Toast.LENGTH_SHORT).show();

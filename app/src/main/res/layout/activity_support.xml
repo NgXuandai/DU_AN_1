@@ -66,6 +66,7 @@
                     android:id="@+id/buttonSendEmail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:backgroundTint="#2196F3"
                     android:text="Gửi Gmail Ý kiến"
                     android:layout_marginTop="16dp"
                     />
@@ -80,6 +81,7 @@
                     android:id="@+id/buttonCallHotline"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:backgroundTint="#2196F3"
                     android:text="Gọi điện cho tổng đài"
                     android:layout_marginTop="16dp"
                     />

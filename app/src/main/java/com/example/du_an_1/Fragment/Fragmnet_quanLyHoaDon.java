@@ -102,7 +102,7 @@ public class Fragmnet_quanLyHoaDon extends Fragment {
 
         switch (type) {
             case "coming": {
-                ArrayList<GioHang> orderArrayList = dao_gioHang.getOrderOfUser(mangdung, "Coming");
+                ArrayList<GioHang> orderArrayList = dao_gioHang.getOrderOfUser(mangdung, "succes");
                 if (orderArrayList.size() > 0) {
                     for (GioHang order : orderArrayList) {
                         OrderCard card = new OrderCard(getContext(), order);

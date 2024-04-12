@@ -68,13 +68,14 @@
                 android:text="@string/status"
                 android:textColor="@color/white"/>
         </LinearLayout>
+
         <Button
             android:id="@+id/btnConfirmOrder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="14sp"
-            app:backgroundTint="@null"
             android:background="@color/main_color"
-            android:text="Đã Nhận"/>
+            android:text="Đã Nhận"
+            android:textSize="14sp"
+            app:backgroundTint="@null" />
     </LinearLayout>
 </LinearLayout>
