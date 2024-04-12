@@ -18,11 +18,18 @@ public class Food implements Serializable {
     private String moTa;
     private int trangthai;
     private int numberInCart;
+    private int soluongdamua;
 
 
 
     public Food(){
 
+    }
+
+    public Food(String maFood, String tenFood, int soluongdamua) {
+        this.maFood = maFood;
+        this.tenFood = tenFood;
+        this.soluongdamua = soluongdamua;
     }
 
     public Food(String maFood, int giaFood, byte[] hinhAnh) {
@@ -68,6 +75,13 @@ public class Food implements Serializable {
         this.hinhAnh = hinhAnh;
     }
 
+    public int getSoluongdamua() {
+        return soluongdamua;
+    }
+
+    public void setSoluongdamua(int soluongdamua) {
+        this.soluongdamua = soluongdamua;
+    }
 
     public int getTrangthai() {
         return trangthai;

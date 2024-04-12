@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    ImageView imageView;
     UserDao user_dao;
     TextView tv_name;
     public static DAO_GioHang dao_gioHang;
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("USER_FILE", Context.MODE_PRIVATE);
         String usernameLogged = sharedPreferences.getString("USERNAME", "");
 
+        imageView = findViewById(R.id.img_avatar);
         tv_name = findViewById(R.id.tv_title_food);
         user_dao = new UserDao(this);
 
@@ -76,7 +79,15 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewCategory();
         recyclerViewPopular();
 
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,Profile.class));
+            }
+        });
+
     }
+
 
 
     private void bottomNavigation() {

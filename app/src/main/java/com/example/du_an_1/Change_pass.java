@@ -3,6 +3,7 @@ package com.example.du_an_1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -43,6 +44,12 @@ public class Change_pass extends AppCompatActivity {
             public void onClick(View v) {
                 changePassword();
 
+            }
+        });
+        btn_huy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Change_pass.this,Setting.class));
             }
         });
 

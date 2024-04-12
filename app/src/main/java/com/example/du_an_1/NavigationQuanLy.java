@@ -22,6 +22,7 @@ import android.widget.FrameLayout;
 
 import com.example.du_an_1.DAO.UserDao;
 import com.example.du_an_1.Fragment.Fragment_DoanhThu;
+import com.example.du_an_1.Fragment.Fragment_ThongKeTop10;
 import com.example.du_an_1.Fragment.Fragment_quanLyLoaiSp;
 import com.example.du_an_1.Fragment.Fragmnet_quanLyHoaDon;
 import com.example.du_an_1.Fragment.Frament_quanLySP;
@@ -95,6 +96,9 @@ public class NavigationQuanLy extends AppCompatActivity {
                 }else if (item.getItemId() == R.id.QLDT) {
                     toolbar.setTitle("Quản lý doanh thu");
                     fragment = new Fragment_DoanhThu();
+                } else if (item.getItemId() == R.id.TOP10) {
+                    toolbar.setTitle("TOP10");
+                    fragment = new Fragment_ThongKeTop10();
                 }else if (item.getItemId() == R.id.QLThoat) {
                     openDialog_DangXuat();
                 }

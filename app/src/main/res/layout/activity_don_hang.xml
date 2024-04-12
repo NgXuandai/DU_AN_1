@@ -21,17 +21,17 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/btnDanggiao"
-                android:layout_width="206sp"
+                android:id="@+id/btnxacnhandh"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:background="@color/menuDriver"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/tvDangGiao"
+                    android:id="@+id/tvxacnhandh"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="đang giao hàng"
+                    android:text="Chờ xác nhận"
                     android:textStyle="bold"
                     android:textSize="18dp"
                     android:textColor="@color/white"
@@ -39,9 +39,46 @@
                     android:layout_gravity="center"
                     android:gravity="center"/>
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnDanggiao"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tvDangGiao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="đang giao"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/ops"
+                    android:layout_gravity="center"
+                    android:gravity="center"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/btnDaHuy"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tvDaHuy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Đã hủy"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/ops"
+                    android:layout_gravity="center"
+                    android:gravity="center"/>
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/btnhistoryDh"
-                android:layout_width="206sp"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:orientation="vertical">

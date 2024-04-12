@@ -53,9 +53,9 @@ public class Frament_quanLySP extends Fragment {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                 if (position == 0) {
-                    tab.setText("Are Trading");
+                    tab.setText("Đang kinh doanh");
                 } else {
-                    tab.setText("Stop Business");
+                    tab.setText("Ngừng kinh doanh");
                 }
             }
         });

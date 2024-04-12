@@ -21,6 +21,16 @@ public class UserDao {
         DbHelper dbHelper = new DbHelper(context);
         db = dbHelper.getWritableDatabase();
     }
+
+    public User getUserByUsername(String username) {
+        String sql = "SELECT * FROM User WHERE maDN=?";
+        List<User> userList = getData(sql, username);
+        if (!userList.isEmpty()) {
+            return userList.get(0); // Trả về User đầu tiên trong danh sách nếu tồn tại
+        }
+        return null; // Trả về null nếu không tìm thấy User
+    }
+
     public List<User> getAll() {
         String sql = "SELECT * FROM User";
         return getData(sql);

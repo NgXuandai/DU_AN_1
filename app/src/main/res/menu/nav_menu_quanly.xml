@@ -26,6 +26,11 @@
             android:id="@+id/QLDT"
             android:icon="@drawable/doanhthu"
             />
+        <item
+            android:title="Top10 sản phẩm bán chạy"
+            android:id="@+id/TOP10"
+            android:icon="@drawable/top"
+            />
 
 <!--        <item-->
 <!--            android:title="Quản Lý Xe"-->

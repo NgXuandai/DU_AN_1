@@ -1,0 +1,60 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context=".Login"
+    android:background="#E91E63">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="318dp"
+        android:src="@drawable/signup" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mật khẩu mới"
+        android:textSize="40dp"
+        android:textColor="@color/white"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rectangle_4"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/edt_newpass"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:hint="Nhập mật khẩu mới"
+            android:background="@drawable/edittext_bkg"
+            android:drawableStart="@drawable/ic_repass"
+            android:drawablePadding="10dp"
+            android:paddingStart="10dp"
+            />
+
+
+
+        <Button
+            android:id="@+id/btn_doimk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Đổi"
+            android:backgroundTint="#E91E63"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

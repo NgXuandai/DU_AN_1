@@ -33,8 +33,8 @@ import java.util.Objects;
 public class DonHang extends AppCompatActivity {
     public static LinearLayout cartContainer;
     private static String status;
-    private LinearLayout btnDangDen, btnLichSu;
-    private TextView tvGioHang, tvDangDen, tvLichSu;
+    private LinearLayout btnDangDen, btnLichSu, btnxacnhan, btnhuy;
+    private TextView tvGioHang, tvDangDen, tvLichSu, tvxacnhan, tvhuy;
     UserDao user_dao ;
     DAO_GioHang dao_gioHang;
     DAO_chitietDonHang dao_chitietDonHang;
@@ -62,15 +62,27 @@ public class DonHang extends AppCompatActivity {
         ma_ctd = i.getIntExtra("ma",0);
         mafoood = dao_chitietDonHang.getIdmF(ma_ctd);
 
+
+
         referencesComponent();
-        LoadOrder("coming");
-        status = "coming";
+        LoadOrder("sucCess");
+        status = "sucCess";
         Log.i("SQLite", mangdung+"");
     }
 
     private void referencesComponent(){
         user_dao = new UserDao(this);
         dao_chitietDonHang = new DAO_chitietDonHang(this);
+
+        btnxacnhan = findViewById(R.id.btnxacnhandh);
+        btnxacnhan.setOnClickListener(view->{
+            resetAttribute();
+            btnxacnhan.setBackground(ContextCompat.getDrawable(Objects.requireNonNull(this),R.color.menuDriver));
+            tvxacnhan.setTextColor(Color.WHITE);
+
+            LoadOrder("sucCess");
+        });
+
 
         btnDangDen = findViewById(R.id.btnDanggiao);
         btnDangDen.setOnClickListener(view->{
@@ -79,6 +91,15 @@ public class DonHang extends AppCompatActivity {
             tvDangDen.setTextColor(Color.WHITE);
 
             LoadOrder("coming");
+        });
+
+        btnhuy = findViewById(R.id.btnDaHuy);
+        btnhuy.setOnClickListener(view->{
+            resetAttribute();
+            btnhuy.setBackground(ContextCompat.getDrawable(Objects.requireNonNull(this),R.color.menuDriver));
+            tvhuy.setTextColor(Color.WHITE);
+
+            LoadOrder("huy");
         });
 
         btnLichSu = findViewById(R.id.btnhistoryDh);
@@ -92,6 +113,8 @@ public class DonHang extends AppCompatActivity {
 
         tvDangDen = findViewById(R.id.tvDangGiao);
         tvLichSu = findViewById(R.id.tvLichSudh);
+        tvxacnhan = findViewById(R.id.tvxacnhandh);
+        tvhuy = findViewById(R.id.tvDaHuy);
 
 
 
@@ -116,8 +139,39 @@ public class DonHang extends AppCompatActivity {
         cartContainer.removeAllViews();
         switch (type) {
 
+            case "sucCess": {
+                ArrayList<GioHang> orderArrayList = dao_gioHang.getOrderOfUser(Integer.valueOf(user_dao.getMaND(usernameLogged)), "succes");
+                if (orderArrayList.size() > 0) {
+                    for (GioHang order : orderArrayList) {
+                        OrderCard card = new OrderCard(this, order);
+                        card.setOnClickListener(view -> {
+                            Intent intent = new Intent(this, ViewOrderActivity.class);
+                            intent.putExtra("order", order);
+                            startActivity(intent);
+                        });
+                        cartContainer.addView(card);
+                    }
+                }
+                break;
+            }
+
             case "coming": {
                 ArrayList<GioHang> orderArrayList = dao_gioHang.getOrderOfUser(Integer.valueOf(user_dao.getMaND(usernameLogged)), "Coming");
+                if (orderArrayList.size() > 0) {
+                    for (GioHang order : orderArrayList) {
+                        OrderCard card = new OrderCard(this, order);
+                        card.setOnClickListener(view -> {
+                            Intent intent = new Intent(this, ViewOrderActivity.class);
+                            intent.putExtra("order", order);
+                            startActivity(intent);
+                        });
+                        cartContainer.addView(card);
+                    }
+                }
+                break;
+            }
+            case "huy": {
+                ArrayList<GioHang> orderArrayList = dao_gioHang.getOrderOfUser(Integer.valueOf(user_dao.getMaND(usernameLogged)), "huy");
                 if (orderArrayList.size() > 0) {
                     for (GioHang order : orderArrayList) {
                         OrderCard card = new OrderCard(this, order);
@@ -151,9 +205,13 @@ public class DonHang extends AppCompatActivity {
     private void resetAttribute(){
         btnDangDen.setBackground(ContextCompat.getDrawable(this,R.drawable.bg_white));
         btnLichSu.setBackground(ContextCompat.getDrawable(this,R.drawable.bg_white));
+        btnxacnhan.setBackground(ContextCompat.getDrawable(this,R.drawable.bg_white));
+        btnhuy.setBackground(ContextCompat.getDrawable(this,R.drawable.bg_white));
 
 
         tvLichSu.setTextColor(Color.BLACK);
         tvDangDen.setTextColor(Color.BLACK);
+        tvxacnhan.setTextColor(Color.BLACK);
+        tvhuy.setTextColor(Color.BLACK);
     }
 }

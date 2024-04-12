@@ -15,7 +15,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Đăng Nhập"
+        android:text="Quên mật khẩu"
         android:textSize="40dp"
         android:textColor="@color/white"/>
     <LinearLayout
@@ -24,12 +24,12 @@
         android:background="@drawable/rectangle_4"
         android:orientation="vertical">
         <EditText
-            android:id="@+id/edt_user_login"
+            android:id="@+id/edt_username"
             android:layout_width="350dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="40dp"
-            android:hint="Nhập tài khoản"
+            android:hint="Nhập Username"
             android:background="@drawable/edittext_bkg"
             android:drawableStart="@drawable/icon_user"
             android:drawablePadding="10dp"
@@ -37,31 +37,25 @@
             />
 
         <EditText
-            android:id="@+id/edt_pass_login"
+            android:id="@+id/edt_sdt"
             android:layout_width="350dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="40dp"
-            android:hint="Nhập mật khẩu"
+            android:hint="Nhập sdt"
             android:background="@drawable/edittext_bkg"
             android:drawableStart="@drawable/icon_password"
             android:inputType="textPassword"
             android:drawablePadding="10dp"
             android:paddingStart="10dp"
             />
-        <CheckBox
-            android:id="@+id/chkRememberPass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="50dp"
-            android:text="Ghi nhớ mật khẩu?"/>
+
         <Button
-            android:id="@+id/btn_login"
+            android:id="@+id/btn_forgot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Đăng Nhập "
+            android:text="Check"
             android:backgroundTint="#E91E63"/>
 
         <LinearLayout
@@ -70,27 +64,9 @@
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Bạn chưa có tài khoản?"
-                />
-            <TextView
-                android:id="@+id/txt_dangki"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Đăng kí tài khoản"
-                android:textColor="#E91E63"
-                android:layout_marginLeft="10dp"/>
+
 
         </LinearLayout>
-        <TextView
 
-            android:id="@+id/txt_forgot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Quên mật khẩu "
-            android:textColor="#E91E63"
-            android:layout_marginLeft="150dp"/>
     </LinearLayout>
 </LinearLayout>

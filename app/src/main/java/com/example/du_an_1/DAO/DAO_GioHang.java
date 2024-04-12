@@ -76,7 +76,7 @@ public class DAO_GioHang {
         ArrayList<GioHang> orderList = new ArrayList<>();
         String query = "SELECT * FROM (SELECT * FROM gioHang WHERE maUser=" + userId + ") WHERE status='" + status + "'";
         if(status.equals("Delivered")){
-            query += " OR status='Canceled'";
+            query += " OR status='huy'";
         }
         Cursor cursor = dbHelper.getData(query);
         while (cursor.moveToNext()){

@@ -65,7 +65,7 @@ public class Profile extends AppCompatActivity {
         txtDoiPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Profile.this, Setting.class);
+                Intent i = new Intent(Profile.this, Change_pass.class);
                 startActivity(i);
             }
         });

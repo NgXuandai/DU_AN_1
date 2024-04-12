@@ -56,7 +56,7 @@ public class ViewOrderActivity extends AppCompatActivity {
         tvStatus = findViewById(R.id.tvOrderStatusView);
 
         Button btnDeleteOrder = findViewById(R.id.btnDeleteOrder);
-        if(order.getStatus().equals("Delivered") || order.getStatus().equals("Canceled")){
+        if(order.getStatus().equals("Delivered") ){
             btnDeleteOrder.setEnabled(false);
             btnDeleteOrder.setBackgroundColor(Color.GRAY);
         }
@@ -65,7 +65,7 @@ public class ViewOrderActivity extends AppCompatActivity {
             dialog.setMessage("Bạn có muốn xóa món đơn hàng này không?");
             dialog.setPositiveButton("Có", (dialogInterface, i) -> {
                 dao_gioHang = new DAO_GioHang(this);
-                order.setStatus("Canceled");
+                order.setStatus("huy");
                 dao_gioHang.updateOrder(order);
                 Toast.makeText(this, "Đơn hàng đã bị hủy!", Toast.LENGTH_SHORT).show();
                 finish();

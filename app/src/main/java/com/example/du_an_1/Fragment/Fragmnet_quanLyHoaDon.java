@@ -36,8 +36,8 @@ public class Fragmnet_quanLyHoaDon extends Fragment {
     @SuppressLint("StaticFieldLeak")
     public static LinearLayout cartContainer;
 
-    private LinearLayout btnDangDen, btnLichSu;
-    private TextView  tvDangDen, tvLichSu;
+    private LinearLayout btnDangDen, btnLichSu, btnhuy, btnxacnhan;
+    private TextView  tvDangDen, tvLichSu, tvhuy, tvxacnhan;
 
     private static String status;
 
@@ -61,12 +61,23 @@ public class Fragmnet_quanLyHoaDon extends Fragment {
         list = new ArrayList<>();
 
         referencesComponent();
-        LoadOrder("craft");
-        status = "craft";
+        LoadOrder("sucCess");
+        status = "sucCess";
         return mainView;
     }
     @SuppressLint("UseRequireInsteadOfGet")
     private void referencesComponent(){
+
+        btnxacnhan = mainView.findViewById(R.id.btnxacnhan);
+        btnxacnhan.setOnClickListener(view -> {
+            resetAttribute();
+            btnxacnhan.setBackground(ContextCompat.getDrawable(Objects.requireNonNull(getContext()),R.color.main_color));
+            tvxacnhan.setTextColor(Color.WHITE);
+
+            LoadOrder("sucCess");
+        });
+
+
         btnDangDen = mainView.findViewById(R.id.btnDangDen);
         btnDangDen.setOnClickListener(view->{
             resetAttribute();
@@ -74,6 +85,16 @@ public class Fragmnet_quanLyHoaDon extends Fragment {
             tvDangDen.setTextColor(Color.WHITE);
 
             LoadOrder("coming");
+        });
+
+
+        btnhuy = mainView.findViewById(R.id.btnDaHuy);
+        btnhuy.setOnClickListener(view -> {
+            resetAttribute();
+            btnhuy.setBackground(ContextCompat.getDrawable(Objects.requireNonNull(getContext()),R.color.main_color));
+            tvhuy.setTextColor(Color.WHITE);
+
+            LoadOrder("huy");
         });
 
         btnLichSu = mainView.findViewById(R.id.btnLichSu);
@@ -87,6 +108,8 @@ public class Fragmnet_quanLyHoaDon extends Fragment {
 
         tvDangDen = mainView.findViewById(R.id.tvDangDen);
         tvLichSu = mainView.findViewById(R.id.tvLichSu);
+        tvhuy = mainView.findViewById(R.id.tvDaHuy);
+        tvxacnhan = mainView.findViewById(R.id.tvxacnhan);
 
     }
 
@@ -101,8 +124,38 @@ public class Fragmnet_quanLyHoaDon extends Fragment {
         cartContainer.removeAllViews();
 
         switch (type) {
-            case "coming": {
+            case "sucCess": {
                 ArrayList<GioHang> orderArrayList = dao_gioHang.getOrderOfUser(mangdung, "succes");
+                if (orderArrayList.size() > 0) {
+                    for (GioHang order : orderArrayList) {
+                        OrderCard card = new OrderCard(getContext(), order);
+                        card.setOnClickListener(view -> {
+                            Intent intent = new Intent(getContext(), ViewOrderActivity.class);
+                            intent.putExtra("order", order);
+                            startActivity(intent);
+                        });
+                        cartContainer.addView(card);
+                    }
+                }
+                break;
+            }
+            case "coming": {
+                ArrayList<GioHang> orderArrayList = dao_gioHang.getOrderOfUser(mangdung, "Coming");
+                if (orderArrayList.size() > 0) {
+                    for (GioHang order : orderArrayList) {
+                        OrderCard card = new OrderCard(getContext(), order);
+                        card.setOnClickListener(view -> {
+                            Intent intent = new Intent(getContext(), ViewOrderActivity.class);
+                            intent.putExtra("order", order);
+                            startActivity(intent);
+                        });
+                        cartContainer.addView(card);
+                    }
+                }
+                break;
+            }
+            case "huy": {
+                ArrayList<GioHang> orderArrayList = dao_gioHang.getOrderOfUser(mangdung, "huy");
                 if (orderArrayList.size() > 0) {
                     for (GioHang order : orderArrayList) {
                         OrderCard card = new OrderCard(getContext(), order);
@@ -140,8 +193,13 @@ public class Fragmnet_quanLyHoaDon extends Fragment {
     private void resetAttribute(){
         btnDangDen.setBackground(ContextCompat.getDrawable(Objects.requireNonNull(getContext()),R.drawable.bg_white));
         btnLichSu.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.bg_white));
+        btnhuy.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.bg_white));
+        btnxacnhan.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.bg_white));
+
 
         tvLichSu.setTextColor(Color.BLACK);
         tvDangDen.setTextColor(Color.BLACK);
+        tvhuy.setTextColor(Color.BLACK);
+        tvxacnhan.setTextColor(Color.BLACK);
     }
 }

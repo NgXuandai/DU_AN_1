@@ -23,7 +23,7 @@ public class Login extends AppCompatActivity {
     EditText edt_user_login,edt_pass_login;
     CheckBox chkRememberPass;
     Button btn_login;
-    TextView txt_dangki;
+    TextView txt_dangki,txt_forgot;
     UserDao userDao;
 
     String user, pass;
@@ -41,6 +41,7 @@ public class Login extends AppCompatActivity {
         edt_user_login = findViewById(R.id.edt_user_login);
         chkRememberPass = findViewById(R.id.chkRememberPass);
         txt_dangki = findViewById(R.id.txt_dangki);
+        txt_forgot = findViewById(R.id.txt_forgot);
         btn_login = findViewById(R.id.btn_login);
         userDao = new UserDao(this);
 
@@ -73,6 +74,7 @@ public class Login extends AppCompatActivity {
                 },1200);
             }
         });
+
         txt_dangki.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -83,6 +85,13 @@ public class Login extends AppCompatActivity {
                     txt_dangki.setTextColor(Color.YELLOW);
                 }
                 return false;
+            }
+        });
+        txt_forgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login.this,Forgot.class);
+                startActivity(intent);
             }
         });
 
